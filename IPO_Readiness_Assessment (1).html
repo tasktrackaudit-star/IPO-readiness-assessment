@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPO Readiness Assessment - MK Mittal Advisory</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--navy:#1A2B4A;--maroon:#8B1A1A;--slate:#F4F7FB;--lgray:#E2E8F0;--mid:#6B7A8D;--black:#0D0D0D;--white:#FFFFFF;--accent:#C3D9F8;--green:#1A6B3A;--serif:'DM Serif Display',Georgia,serif;--sans:'DM Sans',Helvetica,sans-serif;}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--sans);background:var(--slate);color:var(--black);min-height:100vh;-webkit-font-smoothing:antialiased;}
+  .topbar{background:var(--navy);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+  .topbar-brand{display:flex;align-items:center;gap:12px;}
+  .topbar-accent{width:4px;height:28px;background:var(--maroon);border-radius:2px;}
+  .topbar-name{font-family:var(--serif);font-size:16px;color:var(--white);}
+  .topbar-tag{font-size:11px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;}
+  .topbar-badge{font-size:11px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;border:1px solid rgba(195,217,248,.3);padding:4px 10px;border-radius:20px;}
+  .main{max-width:680px;margin:0 auto;padding:48px 24px 80px;}
+  .screen{display:none;} .screen.active{display:block;animation:fadeUp .3s ease;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .eyebrow{font-size:11px;font-weight:600;color:var(--maroon);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .eyebrow::before{content:'';display:block;width:22px;height:2px;background:var(--maroon);}
+  .hero-title{font-family:var(--serif);font-size:clamp(28px,5vw,42px);color:var(--navy);line-height:1.15;margin-bottom:16px;}
+  .hero-title em{color:var(--maroon);font-style:italic;}
+  .hero-desc{font-size:15px;line-height:1.7;color:var(--mid);margin-bottom:28px;}
+  .truth-box{background:var(--white);border:1px solid var(--lgray);border-left:4px solid var(--maroon);border-radius:4px;padding:20px 22px;margin-bottom:28px;}
+  .truth-label{font-size:11px;font-weight:700;color:var(--maroon);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px;}
+  .truth-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--black);line-height:1.6;margin-bottom:8px;}
+  .truth-item:last-child{margin-bottom:0;}
+  .truth-dot{width:6px;height:6px;background:var(--maroon);border-radius:50%;flex-shrink:0;margin-top:7px;}
+  .meta-row{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--mid);margin-bottom:32px;}
+  .meta-row span{display:flex;align-items:center;gap:5px;}
+  .meta-row span::before{content:'';display:block;width:5px;height:5px;background:var(--maroon);border-radius:50%;}
+  .page-eyebrow{font-size:11px;font-weight:600;color:var(--maroon);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .page-eyebrow::before{content:'';display:block;width:20px;height:2px;background:var(--maroon);}
+  .page-title{font-family:var(--serif);font-size:28px;color:var(--navy);margin-bottom:8px;}
+  .page-note{font-size:14px;color:var(--mid);font-style:italic;margin-bottom:24px;line-height:1.6;}
+  .form-card{background:var(--white);border:1px solid var(--lgray);border-top:4px solid var(--maroon);border-radius:4px;padding:28px;margin-bottom:20px;}
+  .req-note{font-size:12px;color:var(--mid);margin-bottom:18px;}
+  .req-note span{color:var(--maroon);font-weight:700;}
+  .field{margin-bottom:18px;} .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--navy);margin-bottom:7px;}
+  .field label .req{color:var(--maroon);margin-left:2px;}
+  .field input{width:100%;padding:11px 14px;font-family:var(--sans);font-size:15px;color:var(--black);background:var(--white);border:1.5px solid var(--lgray);border-radius:4px;outline:none;transition:border-color .2s;}
+  .field input:focus{border-color:var(--navy);}
+  .field input.err{border-color:var(--maroon);}
+  .field-hint{font-size:11px;color:var(--mid);margin-top:4px;}
+  .phone-wrap{position:relative;}
+  .phone-counter{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--mid);pointer-events:none;}
+  .err-msg{font-size:12px;color:var(--maroon);margin-top:4px;display:none;}
+  .err-msg.show{display:block;}
+  .sticky-progress{position:sticky;top:56px;z-index:50;background:var(--navy);padding:8px 20px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,.08);}
+  .sp-label{font-size:12px;color:var(--accent);white-space:nowrap;}
+  .sp-bar{flex:1;height:4px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden;}
+  .sp-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .3s;}
+  .sp-count{font-size:12px;font-weight:600;color:var(--white);white-space:nowrap;}
+  .q-body{padding-top:24px;}
+  .q-block{background:var(--white);border:1px solid var(--lgray);border-radius:4px;margin-bottom:12px;overflow:hidden;}
+  .q-head{display:flex;align-items:stretch;border-bottom:1px solid var(--lgray);}
+  .q-num-col{width:48px;flex-shrink:0;background:var(--navy);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:22px;color:var(--white);}
+  .q-text-col{flex:1;padding:16px 18px;}
+  .q-text{font-size:15px;font-weight:500;color:var(--navy);line-height:1.5;}
+  .q-hint{font-size:12px;color:var(--mid);font-style:italic;margin-top:6px;}
+  .q-options{display:flex;flex-direction:column;}
+  .q-opt{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer;border-bottom:1px solid var(--lgray);transition:background .15s;user-select:none;}
+  .q-opt:last-child{border-bottom:none;}
+  .q-opt:hover{background:var(--slate);}
+  .q-opt.selected{background:rgba(26,43,74,.04);border-left:3px solid var(--navy);}
+  .q-opt.selected .q-radio{background:var(--navy);border-color:var(--navy);}
+  .q-opt.selected .q-radio-dot{opacity:1;}
+  .q-radio{width:18px;height:18px;flex-shrink:0;border:2px solid var(--lgray);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .15s;}
+  .q-radio-dot{width:7px;height:7px;border-radius:50%;background:var(--white);opacity:0;transition:opacity .15s;}
+  .q-opt-body{flex:1;}
+  .q-opt-label{font-size:14px;color:var(--black);line-height:1.5;}
+  .q-opt.selected .q-opt-label{color:var(--navy);font-weight:500;}
+  .rep-header{background:var(--navy);border-radius:4px;padding:28px;margin-bottom:24px;}
+  .rep-label{font-size:12px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px;}
+  .rep-title{font-family:var(--serif);font-size:26px;color:var(--white);margin-bottom:18px;line-height:1.2;}
+  .rep-stats{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:16px;}
+  .rep-stat{flex:1;min-width:80px;}
+  .rep-stat-num{font-family:var(--serif);font-size:36px;line-height:1;color:var(--white);}
+  .rep-stat-den{font-size:14px;color:var(--accent);}
+  .rep-stat-lbl{font-size:10px;color:var(--accent);letter-spacing:.06em;text-transform:uppercase;margin-top:3px;}
+  .rep-level{font-size:18px;font-weight:600;color:var(--white);}
+  .rep-bar-track{height:5px;background:rgba(255,255,255,.12);border-radius:3px;overflow:hidden;margin-top:16px;}
+  .rep-bar-fill{height:100%;border-radius:3px;transition:width 1s cubic-bezier(.4,0,.2,1);}
+  .bar-green{background:#2ecc71;} .bar-amber{background:#f39c12;} .bar-red{background:#e74c3c;}
+  .section-title{font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.08em;text-transform:uppercase;margin:24px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--lgray);}
+  .assessment-box{background:var(--white);border:1px solid var(--lgray);border-left:4px solid var(--navy);border-radius:4px;padding:22px;margin-bottom:20px;}
+  .assessment-box p{font-size:14px;line-height:1.8;color:var(--black);}
+  .gap-item{background:var(--white);border:1px solid var(--lgray);border-left:4px solid var(--maroon);border-radius:4px;padding:16px 18px;margin-bottom:8px;}
+  .gap-q{font-size:10px;font-weight:700;color:var(--maroon);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;}
+  .gap-text{font-size:14px;color:var(--black);margin-bottom:6px;font-weight:500;line-height:1.5;}
+  .gap-impl{font-size:12px;color:var(--mid);line-height:1.6;font-style:italic;}
+  .rec-card{background:var(--white);border:1px solid var(--lgray);border-left:4px solid var(--navy);border-radius:4px;padding:16px 18px;margin-bottom:8px;}
+  .rec-num{font-size:10px;font-weight:700;color:var(--mid);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;}
+  .rec-text{font-size:14px;color:var(--black);line-height:1.7;}
+  .cta-box{background:var(--maroon);border-radius:4px;padding:24px;margin-top:28px;text-align:center;}
+  .cta-box-title{font-family:var(--serif);font-size:20px;color:var(--white);margin-bottom:8px;}
+  .cta-box-desc{font-size:13px;color:rgba(255,255,255,.8);margin-bottom:16px;line-height:1.6;}
+  .cta-email{font-size:14px;font-weight:600;color:var(--white);background:rgba(255,255,255,.15);padding:10px 20px;border-radius:4px;display:inline-block;letter-spacing:.04em;}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;font-family:var(--sans);font-size:14px;font-weight:600;border:none;border-radius:4px;cursor:pointer;transition:all .2s;}
+  .btn-primary{background:var(--navy);color:var(--white);}
+  .btn-primary:hover{background:#243d68;}
+  .btn-primary:active{transform:scale(.98);}
+  .btn-lg{padding:15px 34px;font-size:15px;}
+  .btn-icon::after{content:'\2192';}
+  .btn-full{width:100%;justify-content:center;}
+  .btn-row{display:flex;align-items:center;justify-content:space-between;margin-top:28px;padding-top:22px;border-top:1px solid var(--lgray);}
+  .btn-back{background:none;border:none;font-family:var(--sans);font-size:14px;color:var(--mid);cursor:pointer;display:flex;align-items:center;gap:5px;padding:0;}
+  .btn-back:hover{color:var(--navy);}
+  .btn-back::before{content:'\2190';}
+  .footer{text-align:center;padding:16px;font-size:12px;color:var(--mid);border-top:1px solid var(--lgray);margin-top:48px;}
+  .footer strong{color:var(--navy);}
+  @media(max-width:600px){.main{padding:32px 16px 60px;}.topbar{padding:12px 16px;}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-brand">
+    <div class="topbar-accent"></div>
+    <div>
+      <div class="topbar-name">MK Mittal Advisory</div>
+      <div class="topbar-tag">Risk Advisory &middot; Beyond Compliance. Towards Growth.</div>
+    </div>
+  </div>
+  <div class="topbar-badge">IPO Readiness</div>
+</header>
+
+<main class="main">
+
+  <section class="screen active" id="screen-intro">
+    <div class="eyebrow">Free Assessment</div>
+    <h1 class="hero-title">Can Your Growth Story<br>Survive <em>SEBI Scrutiny?</em></h1>
+    <p class="hero-desc">Every PE-backed company that improved EBITDA by 40% believes it is IPO-ready. Almost none of them are. Because SEBI does not care about your growth story. SEBI cares about your ability to prove it. Six questions to find out if your operational improvements will survive the DRHP or become a 6-month remediation project.</p>
+
+    <div class="truth-box">
+      <div class="truth-label">What this assessment actually uncovers</div>
+      <div class="truth-item"><div class="truth-dot"></div>Whether your margin improvements have traceable evidence or just management narratives</div>
+      <div class="truth-item"><div class="truth-dot"></div>Whether your related party transactions will survive SEBI disclosure requirements</div>
+      <div class="truth-item"><div class="truth-dot"></div>Whether your board structure meets public company governance standards today</div>
+      <div class="truth-item"><div class="truth-dot"></div>Whether your financial reporting can be filed as-is or needs months of restatement</div>
+    </div>
+
+    <div class="meta-row">
+      <span>6 questions</span>
+      <span>5 minutes</span>
+      <span>Immediate results</span>
+      <span>Free</span>
+    </div>
+
+    <button class="btn btn-primary btn-lg btn-icon" onclick="goTo('lead')">Start Assessment</button>
+  </section>
+
+  <section class="screen" id="screen-lead">
+    <div class="page-eyebrow">Before we begin</div>
+    <h2 class="page-title">Where should we send your results?</h2>
+    <p class="page-note">Your personalised IPO readiness assessment will be ready in 5 minutes. We reach out only if the gaps warrant a conversation.</p>
+    <div class="form-card">
+      <div class="req-note"><span>*</span> All fields required</div>
+      <div class="field"><label for="lName">Your name <span class="req">*</span></label><input type="text" id="lName" placeholder="Full name"><div class="err-msg" id="lName-err">Please enter your name</div></div>
+      <div class="field"><label for="lEmail">Email address <span class="req">*</span></label><input type="email" id="lEmail" placeholder="you@company.com"><div class="field-hint">Results will be sent here</div><div class="err-msg" id="lEmail-err">Please enter a valid email address</div></div>
+      <div class="field"><label for="lPhone">WhatsApp / Phone <span class="req">*</span></label><div class="phone-wrap"><input type="tel" id="lPhone" placeholder="10-digit mobile number" maxlength="10" oninput="updateCounter()"><span class="phone-counter" id="phoneCount">0/10</span></div><div class="err-msg" id="lPhone-err">Please enter a valid 10-digit number</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo('intro')">Back</button>
+      <button class="btn btn-primary btn-icon" onclick="validateLead()">Continue to Questions</button>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-questions">
+    <div class="sticky-progress">
+      <span class="sp-label">Progress</span>
+      <div class="sp-bar"><div class="sp-fill" id="sp-fill" style="width:0%"></div></div>
+      <span class="sp-count" id="sp-count">0 / 6</span>
+    </div>
+    <div class="q-body" id="q-body"></div>
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo('lead')">Back</button>
+      <button class="btn btn-primary btn-icon" id="btn-result" onclick="buildAndShow()" style="opacity:.4;pointer-events:none;">See My Results</button>
+    </div>
+  </section>
+
+  <section class="screen" id="screen-result">
+    <div id="result-content"></div>
+    <div style="margin-top:16px;">
+      <button class="btn btn-full" onclick="goTo('questions')" style="background:transparent;border:1px solid var(--lgray);color:var(--mid);justify-content:center;">&larr; Revisit My Answers</button>
+    </div>
+    <footer class="footer" style="margin-top:32px;">
+      <strong>MK Mittal Advisory</strong> &middot; Risk Advisory &middot; Beyond Compliance. Towards Growth.
+    </footer>
+  </section>
+
+</main>
+
+<script>
+// ── CONFIGURATION ────────────────────────────────────────────────────────────
+// After deploying your Google Apps Script as a Web App, paste the URL below.
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxlfJTDS_lY8YMVbBBL-odoIffop_TDQ7fzE3sM2358c-eRbt38UVxXkivmjxE8qr6N/exec";
+// ─────────────────────────────────────────────────────────────────────────────
+
+// Generate a unique session ID for this page visit
+var SESSION_ID = (function() {
+  return 'ipo-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+})();
+
+var QUESTIONS = [
+  {
+    id: 1,
+    text: "Pick your biggest operational improvement from the last 3 years. Can you trace it from board resolution to audited financial statement in under 30 minutes?",
+    hint: "Think of the one improvement your PE partner is most proud of. EBITDA lift, margin expansion, cost reduction.",
+    options: [
+      { label: "Yes. Board resolution approving the initiative, policy change documentation, quarterly audit trail, and financial statement impact are all linked and retrievable.", score: 3, gap: null, impl: null },
+      { label: "The financial impact is visible in audited numbers, but the underlying board approvals and policy documentation would take time to compile.", score: 2, gap: null, impl: null },
+      { label: "The improvement is real and measurable, but the documentation trail is scattered across emails, presentations, and informal approvals.", score: 1, gap: "Operational improvements lack evidence infrastructure", impl: "SEBI does not accept margin improvement as a narrative. Every claim in the DRHP must connect to audited financials, board-approved policies, and traceable documentation. When the evidence trail is scattered, DRHP drafting becomes an archaeological project. Three months of remediation before SEBI comments can even begin is the standard cost of this gap." },
+      { label: "The improvement happened operationally. There is no formal documentation trail connecting it to board decisions or policy changes.", score: 0, gap: "No evidence trail for value creation", impl: "This is the most expensive IPO gap. The value is real. The EBITDA impact is audited. But the how and why have no institutional documentation. SEBI will ask: what changed, who approved it, what policy governs it, and how is it sustainable? Without answers, the DRHP cannot credibly disclose the improvement. The value you created becomes the value you cannot prove." }
+    ]
+  },
+  {
+    id: 2,
+    text: "How many related party transactions happened in your business last financial year? Can you produce arm-length pricing documentation for each one?",
+    hint: "Include inter-company transfers, promoter entity transactions, management contracts, vendor arrangements with connected parties.",
+    options: [
+      { label: "All RPTs are catalogued. Each has board-approved pricing benchmarked against independent market rates, with documentation maintained quarterly.", score: 3, gap: null, impl: null },
+      { label: "Major RPTs are documented with pricing rationale. Some smaller transactions may not have formal arm-length evidence.", score: 2, gap: null, impl: null },
+      { label: "We know RPTs exist but the full list has never been formally compiled. Pricing documentation is inconsistent.", score: 1, gap: "Related party transaction documentation is incomplete", impl: "SEBI scrutinises every RPT in the DRHP. Every single one. If your RPT register is incomplete or pricing documentation is inconsistent, expect a minimum 8-12 weeks of remediation before the prospectus can address SEBI ICDR requirements. The transactions themselves may be perfectly legitimate. Without documentation, they look problematic." },
+      { label: "Honestly, we have not maintained a formal RPT register. Transactions between group entities happen on trust.", score: 0, gap: "No RPT register or pricing discipline exists", impl: "This is a DRHP blocker. SEBI requires full disclosure of all related party transactions with pricing justification. Reconstructing years of transactions, establishing retroactive arm-length pricing, and documenting board approvals after the fact is the most time-consuming and credibility-damaging exercise in IPO preparation. This single gap routinely adds 4-6 months to filing timelines." }
+    ]
+  },
+  {
+    id: 3,
+    text: "If SEBI sent your DRHP back with 50 comments tomorrow, could your team respond without calling an emergency board meeting?",
+    hint: "SEBI comments typically cover financial disclosures, risk factors, governance structures, and regulatory compliance. Response quality determines timeline.",
+    options: [
+      { label: "Yes. Our CFO, company secretary, and legal team can address financial, governance, and regulatory queries independently. Board involvement only for strategic disclosures.", score: 3, gap: null, impl: null },
+      { label: "Most comments could be handled by management, but governance and RPT-related queries would require board-level involvement and probably external advisors.", score: 2, gap: null, impl: null },
+      { label: "Our team has limited experience with regulatory scrutiny at this level. Most comments would need to be routed through the promoter and external consultants.", score: 1, gap: "No institutional capacity for regulatory response", impl: "SEBI comment response is time-bound and quality-sensitive. If every comment requires promoter involvement and external consultation, response cycles stretch from weeks to months. SEBI interprets slow, inconsistent responses as governance weakness. The cost is not just time. It is credibility with the regulator that reviews your final prospectus." },
+      { label: "We have never been through a regulatory scrutiny process of this nature. We would need to build this capability from scratch.", score: 0, gap: "Zero regulatory response infrastructure", impl: "This means IPO preparation has not started in any meaningful sense, regardless of operational performance. Building SEBI response capability requires a company secretary with listing experience, a CFO comfortable with Ind AS disclosure standards, and legal counsel experienced with ICDR regulations. Acquiring this capability takes 6-12 months. If IPO is within 18 months, this gap must be addressed immediately." }
+    ]
+  },
+  {
+    id: 4,
+    text: "Your company expanded into 3 new states in the last 2 years. Can you produce a consolidated register of all state-level regulatory approvals, licences, and compliance filings right now?",
+    hint: "Think factory licences, pollution control, labour compliance, GST registrations, professional tax, shops and establishments.",
+    options: [
+      { label: "Yes. Centralised compliance register maintained with validity dates, renewal timelines, and responsible owners for every location.", score: 3, gap: null, impl: null },
+      { label: "Each location maintains its own records. We could compile a consolidated view but it would take 2-3 weeks.", score: 2, gap: null, impl: null },
+      { label: "We are reasonably confident everything is in order, but there is no single register. Some licences may have lapsed without anyone noticing.", score: 1, gap: "Decentralised compliance with no consolidation", impl: "A DRHP requires disclosure of all material licences, approvals, and regulatory filings. If your register is decentralised and potentially incomplete, the legal due diligence phase of IPO preparation becomes a multi-week audit across every location. Worse, if a lapsed licence is discovered during SEBI review, it triggers a material non-compliance disclosure that directly impacts investor perception." },
+      { label: "Geographic expansion was execution-focused. Compliance was handled locally and we have no central visibility.", score: 0, gap: "No consolidated regulatory compliance visibility", impl: "Every state-level expansion that created revenue also created a regulatory footprint. SEBI requires a complete picture. If that picture does not exist centrally, the IPO legal team must reconstruct it from scratch across every state, every entity, every licence category. This typically takes 3-4 months and frequently uncovers compliance gaps that require remediation before filing. The revenue growth looks excellent. The compliance trail behind it determines whether it can be disclosed." }
+    ]
+  },
+  {
+    id: 5,
+    text: "Your financial statements are currently prepared under Ind AS. If an auditor reviewed them today for DRHP inclusion, how much restatement would be required?",
+    hint: "Think revenue recognition policies, lease accounting, related party disclosures, segment reporting, contingent liabilities.",
+    options: [
+      { label: "Minimal. We have been audited quarterly by a SEBI-empanelled auditor. Revenue recognition, lease accounting, and segment reporting are already DRHP-compliant.", score: 3, gap: null, impl: null },
+      { label: "Annual audits are clean, but some areas like segment reporting, contingent liabilities, and RPT disclosures would need enhancement for DRHP standards.", score: 2, gap: null, impl: null },
+      { label: "Our financials are audited but prepared for management and tax purposes. DRHP-level disclosure standards would require significant rework.", score: 1, gap: "Financial reporting built for management, not disclosure", impl: "Management-grade financials and DRHP-grade financials are fundamentally different in disclosure depth. Revenue recognition must explain every revenue stream. Segment reporting must break out every reportable segment. Contingent liabilities must be exhaustively catalogued. Converting management financials to DRHP standards typically requires 2-3 months of auditor rework and frequently surfaces accounting policy inconsistencies that require restatement." },
+      { label: "We are not currently on Ind AS, or our Ind AS adoption is incomplete. Significant conversion work would be needed.", score: 0, gap: "Financial reporting not at institutional standards", impl: "SEBI requires 3-5 years of restated Ind AS financials in the DRHP. If your current financials are not fully Ind AS compliant, the restatement exercise alone takes 4-6 months with a qualified auditor. This is the single longest lead-time item in IPO preparation and cannot be compressed. If IPO is in the thesis, Ind AS conversion with quarterly audits should have started at PE entry." }
+    ]
+  },
+  {
+    id: 6,
+    text: "Your board currently has how many independent directors who meet SEBI listing regulation standards? And have they been in place for more than 12 months?",
+    hint: "SEBI requires minimum independent director composition, audit committee, nomination committee, and stakeholder relationship committee for listed companies.",
+    options: [
+      { label: "Board is already structured to listing standards. Independent directors with relevant experience have been serving 12+ months. All committees are constituted and active.", score: 3, gap: null, impl: null },
+      { label: "We have independent directors, but committee structures are not yet formalised. Board composition may need one additional independent director.", score: 2, gap: null, impl: null },
+      { label: "Board is primarily promoter and PE nominee directors. Independent directors are either absent or recently appointed without committee structures.", score: 1, gap: "Board governance not at listing standards", impl: "SEBI expects independent directors to have been active and engaged before the IPO, not appointed as a last-minute formality. Institutional investors specifically assess board independence and committee activity during roadshows. A board restructured 3 months before filing signals governance weakness. The 12-month threshold is not a formal rule but an institutional investor expectation that directly affects subscription quality." },
+      { label: "We do not currently have independent directors. Board governance has not been a focus.", score: 0, gap: "No public company governance infrastructure", impl: "This requires a 12-18 month runway to address credibly. Identifying qualified independent directors, constituting audit, nomination, and stakeholder committees, establishing board calendar discipline, and building a track record of committee-level governance takes time that cannot be compressed. If this infrastructure does not exist, IPO preparation cannot meaningfully begin regardless of financial performance." }
+    ]
+  }
+];
+
+var state = { answers: {}, lead: {} };
+var TOTAL_Q = QUESTIONS.length;
+var MAX_SCORE = TOTAL_Q * 3;
+
+function updateCounter() {
+  var phone = document.getElementById('lPhone');
+  var counter = document.getElementById('phoneCount');
+  var digits = phone.value.replace(/\D/g, '');
+  phone.value = digits;
+  counter.textContent = digits.length + '/10';
+}
+
+function init() {
+  var body = document.getElementById('q-body');
+  body.innerHTML = '';
+  QUESTIONS.forEach(function(q) {
+    var block = document.createElement('div');
+    block.className = 'q-block';
+    block.id = 'q-block-' + q.id;
+    block.innerHTML =
+      '<div class="q-head">' +
+        '<div class="q-num-col">' + q.id + '</div>' +
+        '<div class="q-text-col">' +
+          '<div class="q-text">' + q.text + '</div>' +
+          '<div class="q-hint">' + q.hint + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="q-options">' +
+        q.options.map(function(o, i) {
+          return '<div class="q-opt" onclick="selectAnswer(' + q.id + ',' + i + ')" id="opt-' + q.id + '-' + i + '">' +
+            '<div class="q-radio"><div class="q-radio-dot"></div></div>' +
+            '<div class="q-opt-body"><div class="q-opt-label">' + o.label + '</div></div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    body.appendChild(block);
+  });
+}
+
+function selectAnswer(qId, optIdx) {
+  state.answers[qId] = optIdx;
+  QUESTIONS.find(function(q) { return q.id === qId; }).options.forEach(function(_, i) {
+    document.getElementById('opt-' + qId + '-' + i).classList.toggle('selected', i === optIdx);
+  });
+  var answered = Object.keys(state.answers).length;
+  document.getElementById('sp-fill').style.width = (answered / TOTAL_Q * 100) + '%';
+  document.getElementById('sp-count').textContent = answered + ' / ' + TOTAL_Q;
+  var btn = document.getElementById('btn-result');
+  if (answered === TOTAL_Q) { btn.style.opacity = '1'; btn.style.pointerEvents = 'auto'; }
+}
+
+function validateLead() {
+  var valid = true;
+  var name = document.getElementById('lName');
+  var email = document.getElementById('lEmail');
+  var phone = document.getElementById('lPhone');
+  [name, email, phone].forEach(function(el) { el.classList.remove('err'); });
+  ['lName-err','lEmail-err','lPhone-err'].forEach(function(id) { document.getElementById(id).classList.remove('show'); });
+  if (!name.value.trim()) { name.classList.add('err'); document.getElementById('lName-err').classList.add('show'); valid = false; }
+  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email.value.trim())) { email.classList.add('err'); document.getElementById('lEmail-err').classList.add('show'); valid = false; }
+  var phoneRe = /^[6-9]\d{9}$/;
+  if (!phoneRe.test(phone.value.trim())) { phone.classList.add('err'); document.getElementById('lPhone-err').classList.add('show'); valid = false; }
+  if (valid) {
+    state.lead = { name: name.value.trim(), email: email.value.trim(), phone: phone.value.trim() };
+    // Fire-and-forget: save registration to Google Sheet
+    postToSheet({
+      action:    'register',
+      sessionId: SESSION_ID,
+      name:      state.lead.name,
+      email:     state.lead.email,
+      phone:     state.lead.phone
+    });
+    goTo('questions');
+  }
+}
+
+function buildAndShow() { buildResult(); submitAssessment(); goTo('result'); }
+
+function buildResult() {
+  var total = 0;
+  var gaps = [];
+  QUESTIONS.forEach(function(q) {
+    var opt = q.options[state.answers[q.id]];
+    total += opt.score;
+    if (opt.gap) gaps.push({ q: 'Question ' + q.id, text: opt.gap, impl: opt.impl });
+  });
+  var pct = Math.round((total / MAX_SCORE) * 100);
+  var firstName = state.lead.name ? state.lead.name.split(' ')[0] : 'Founder';
+
+  var level, verdict, barCls, assessment;
+
+  if (total >= 16) {
+    level = 'IPO-Ready Infrastructure';
+    verdict = 'Your operational improvements have institutional evidence. You can file with confidence.';
+    barCls = 'bar-green';
+    assessment = firstName + ', across all six dimensions your business shows genuine institutional readiness. Evidence trails exist for value creation claims, RPTs are documented, board governance meets listing standards, and your financial reporting can support DRHP drafting without significant restatement. This positions you for a 30-45 day DRHP preparation cycle rather than the 4-6 month remediation most PE-backed companies require. The next step is a formal IPO Readiness Scan to confirm gap closure and initiate banker selection.';
+  } else if (total >= 11) {
+    level = 'Partially Ready - Gaps in Evidence Layer';
+    verdict = 'Your performance is strong. Your evidence infrastructure has specific gaps that will cost you months.';
+    barCls = 'bar-amber';
+    assessment = firstName + ', your business has strong operational performance but the evidence layer that converts that performance into DRHP-ready disclosures has specific gaps. The gaps identified below will each add 4-8 weeks to your IPO timeline if addressed sequentially during preparation. Addressed now, in parallel with ongoing operations, the total remediation is 8-12 weeks. The difference between a 2-month fix now and a 6-month delay later is the market window you either capture or miss.';
+  } else if (total >= 6) {
+    level = 'Significant Remediation Required';
+    verdict = 'Your EBITDA grew. Your IPO infrastructure did not. The gap will cost 4-6 months.';
+    barCls = 'bar-red';
+    assessment = firstName + ', this assessment reveals a business where value creation and institutional readiness developed on separate tracks. The operational improvements are real, but the governance, documentation, and reporting infrastructure required to convert those improvements into a credible DRHP does not yet exist at the required standard. Filing in the current state would result in either SEBI rejection or extensive comment cycles that delay listing by 6+ months. The gaps below require a structured remediation programme beginning immediately.';
+  } else {
+    level = 'IPO Infrastructure Absent';
+    verdict = 'Your business is not IPO-ready. It is exit-ready only through private sale.';
+    barCls = 'bar-red';
+    assessment = firstName + ', across all six dimensions, the institutional infrastructure required for a public market exit does not currently exist. This does not reflect on operational performance, which may be strong. It means the governance, documentation, financial reporting, and regulatory compliance foundations required by SEBI under ICDR regulations have not been built. A realistic IPO timeline from current state is 18-24 months, inclusive of Ind AS conversion, board restructuring, RPT documentation, and compliance consolidation. If IPO is the exit thesis, the remediation programme must begin this quarter.';
+  }
+
+  var html =
+    '<div class="rep-header">' +
+      '<div class="rep-label">IPO Readiness Assessment &middot; ' + firstName + '</div>' +
+      '<div class="rep-title">' + verdict + '</div>' +
+      '<div class="rep-stats">' +
+        '<div class="rep-stat"><div class="rep-stat-num">' + total + '<span class="rep-stat-den">/' + MAX_SCORE + '</span></div><div class="rep-stat-lbl">Score</div></div>' +
+        '<div class="rep-stat"><div class="rep-stat-num">' + gaps.length + '</div><div class="rep-stat-lbl">Gaps Found</div></div>' +
+        '<div class="rep-stat"><div class="rep-stat-num">' + pct + '<span class="rep-stat-den">%</span></div><div class="rep-stat-lbl">Readiness</div></div>' +
+      '</div>' +
+      '<div><div class="rep-level">' + level + '</div></div>' +
+      '<div class="rep-bar-track"><div class="rep-bar-fill ' + barCls + '" id="main-bar" style="width:0%" data-pct="' + pct + '"></div></div>' +
+    '</div>';
+
+  html += '<div class="section-title">Your Personalised Assessment</div>';
+  html += '<div class="assessment-box"><p>' + assessment + '</p></div>';
+
+  if (gaps.length > 0) {
+    html += '<div class="section-title">Where Your IPO Timeline Is at Risk</div>';
+    gaps.forEach(function(g) {
+      html += '<div class="gap-item"><div class="gap-q">' + g.q + '</div><div class="gap-text">' + g.text + '</div><div class="gap-impl">' + g.impl + '</div></div>';
+    });
+
+    var actions = {
+      'Operational improvements lack evidence infrastructure': 'For each major operational improvement from the hold period, create a one-page evidence summary: board resolution date, policy change reference, audited financial impact, and sustainability rationale. This exercise takes 2-3 days per initiative and converts operational narrative into DRHP-ready disclosure material. Start with the top 3 EBITDA drivers.',
+      'No evidence trail for value creation': 'Commission a retrospective documentation exercise immediately. For each value creation initiative, reconstruct the approval trail: who approved it, when, under what authority, and what policy governs it going forward. Where board resolutions do not exist, create ratification resolutions this quarter. This is not optional for DRHP filing.',
+      'Related party transaction documentation is incomplete': 'Build a comprehensive RPT register this month. List every transaction between the company and any related party as defined under the Companies Act. For each, document pricing methodology, benchmark against independent market rates, and obtain board ratification where missing. Engage a transfer pricing specialist for transactions above materiality thresholds.',
+      'No RPT register or pricing discipline exists': 'This requires immediate professional intervention. Engage a chartered accountant experienced in SEBI ICDR requirements to build an RPT register from FY opening balances. Every transaction must be catalogued, priced against arm-length benchmarks, and board-approved. Begin this month. This exercise typically takes 8-12 weeks and cannot be compressed beyond that.',
+      'No institutional capacity for regulatory response': 'Hire or engage a company secretary with listing experience within the next 60 days. Ensure your CFO has exposure to Ind AS disclosure standards at DRHP level. Build a regulatory response team of three: CS, CFO, and external legal counsel experienced with SEBI filings. This team should be in place 12 months before target filing.',
+      'Zero regulatory response infrastructure': 'Begin with an appointment: a company secretary with SEBI listing experience. This single hire changes your institutional capability more than any other action. Simultaneously, engage external legal counsel with ICDR expertise on a retainer basis. Budget for 12 months of capability building before any meaningful filing activity can begin.',
+      'Decentralised compliance with no consolidation': 'Build a centralised compliance register this quarter. For every operating location, catalogue: factory licence, pollution control consent, labour registrations, GST, professional tax, shops and establishment. Include validity dates and renewal owners. Where licences have lapsed, initiate renewal immediately. A single lapsed licence discovered during SEBI review creates a material non-compliance disclosure.',
+      'No consolidated regulatory compliance visibility': 'Engage a compliance consultant to conduct a pan-India regulatory audit across all operating locations within the next 90 days. Every licence, approval, and registration must be catalogued centrally with validity status. Remediate any gaps before IPO preparation begins. This is a prerequisite, not a parallel workstream.',
+      'Financial reporting built for management, not disclosure': 'Engage your auditor for a DRHP readiness review of your last 3 years of financials. Identify specific areas requiring enhanced disclosure: revenue recognition policy by stream, segment reporting, contingent liability exhaustiveness, and RPT note completeness. Budget 2-3 months for the enhancement exercise. Begin before any DRHP drafting.',
+      'Financial reporting not at institutional standards': 'Initiate full Ind AS conversion immediately if not already complete. Engage a SEBI-empanelled auditor for quarterly audits going forward. Plan for 3-year restated financials as required by SEBI. This is the longest lead-time item in your IPO preparation and should have started at PE entry. Every month of delay extends your earliest possible filing date by the same duration.',
+      'Board governance not at listing standards': 'Identify and appoint qualified independent directors within the next 90 days. Constitute audit committee, nomination and remuneration committee, and stakeholder relationship committee with formal charters. Begin holding quarterly committee meetings with documented minutes. The 12-month track record of active governance before filing is an institutional investor expectation that directly affects subscription quality.',
+      'No public company governance infrastructure': 'This is an 18-month programme. Month 1-3: identify and appoint independent directors, constitute committees. Month 3-6: establish board calendar, committee charters, insider trading code. Month 6-12: build track record of quarterly meetings with documented minutes. Month 12-18: IPO preparation with credible governance history. Start this quarter or accept that IPO timeline extends by every month of delay.'
+    };
+
+    html += '<div class="section-title" style="margin-top:24px;">Where to Start</div>';
+    gaps.forEach(function(g, i) {
+      if (actions[g.text]) {
+        html += '<div class="rec-card"><div class="rec-num">Priority ' + (i+1) + '</div><div class="rec-text">' + actions[g.text] + '</div></div>';
+      }
+    });
+  } else {
+    html += '<div style="padding:20px;background:var(--white);border:1px solid var(--lgray);border-left:4px solid var(--green);border-radius:4px;font-size:14px;color:var(--green);font-weight:600;line-height:1.6;">Strong institutional readiness across all six dimensions. Your next step: commission a formal IPO Readiness Scan to confirm gap closure and initiate banker selection with confidence.</div>';
+  }
+
+  html +=
+    '<div class="cta-box">' +
+      '<div class="cta-box-title">Your IPO timeline depends on institutional readiness, not performance.</div>' +
+      '<div class="cta-box-desc">If this assessment surfaced gaps between your operational performance and your disclosure infrastructure, we help PE-backed businesses build the governance, documentation, and reporting foundations that compress IPO timelines from months to weeks.</div>' +
+      '<div class="cta-email">INTERNALAUDIT.MKM@GMAIL.COM</div>' +
+    '</div>';
+
+  document.getElementById('result-content').innerHTML = html;
+  requestAnimationFrame(function() { setTimeout(function() { var bar = document.getElementById('main-bar'); if (bar) bar.style.width = bar.dataset.pct + '%'; }, 200); });
+}
+
+function submitAssessment() {
+  // Build score data
+  var total = 0;
+  var gapsFound = 0;
+  var optionDetails = [];
+
+  QUESTIONS.forEach(function(q) {
+    var optIdx = state.answers[q.id];
+    var opt    = q.options[optIdx];
+    total += opt.score;
+    if (opt.gap) gapsFound++;
+    optionDetails.push({
+      qId:         q.id,
+      optionIndex: optIdx,
+      score:       opt.score,
+      gap:         opt.gap || null
+    });
+  });
+
+  var pct   = Math.round((total / MAX_SCORE) * 100);
+  var level = total >= 16 ? 'IPO-Ready Infrastructure'
+            : total >= 11 ? 'Partially Ready - Gaps in Evidence Layer'
+            : total >= 6  ? 'Significant Remediation Required'
+            :               'IPO Infrastructure Absent';
+
+  postToSheet({
+    action:       'submit',
+    sessionId:    SESSION_ID,
+    name:         state.lead.name  || '',
+    email:        state.lead.email || '',
+    phone:        state.lead.phone || '',
+    totalScore:   total,
+    maxScore:     MAX_SCORE,
+    readinessPct: pct,
+    level:        level,
+    gapsFound:    gapsFound,
+    answers:      state.answers,
+    optionDetails: optionDetails
+  });
+}
+
+function postToSheet(data) {
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL === 'PASTE_YOUR_WEB_APP_URL_HERE') return;
+  fetch(APPS_SCRIPT_URL, {
+    method:  'POST',
+    mode:    'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify(data)
+  }).catch(function(err) {
+    console.warn('Sheet post failed (non-critical):', err);
+  });
+}
+
+function goTo(screen) {
+  var screens = document.querySelectorAll('.screen.active');
+  for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
+  document.getElementById('screen-' + screen).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+init();
+</script>
+</body>
+</html>
